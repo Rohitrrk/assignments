@@ -1,0 +1,15 @@
+CREATE TABLE  Hotel_owners(hotel_ID NUMBER(4) PRIMARY KEY, 
+	NAME VARCHAR2(45), MOBILE VARCHAR2(10 BYTE));
+
+INSERT INTO hotel_OWNERS VALUES (1,'Vaishali Srivastava','8888108810');
+INSERT INTO hotel_OWNERS VALUES (2,'Ankita Ghokhle','9876665454');
+INSERT INTO hotel_OWNERS VALUES (3,'Rohini Vijayan','7659993201');
+
+select * from hotel_owners;
+
+CREATE TABLE Room_Registration (Room_NO  NUMBER(10) primary key, hotel_ID NUMBER(4) references hotel_owners(hotel_id), 
+	room_TYPE NUMBER(1), 	room_AREA NUMBER(4), 
+	RENT_AMOUNT NUMBER(10,2), Paid_AMOUNT NUMBER(10,2));
+
+CREATE SEQUENCE room_SEQ START WITH 1000;
+commit;
