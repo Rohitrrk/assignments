@@ -12,6 +12,8 @@ import java.util.Scanner;
 
 
 
+
+import com.cg.hotel.Exception.RoomException;
 import com.cg.orb.dto.FlatRegistrationDTO;
 import com.cg.orb.service.IRoomRegistrationService;
 import com.cg.orb.service.RoomRegistrationServiceImpl;
@@ -26,7 +28,7 @@ public class Client
 	static  IRoomRegistrationService service1 =  new  RoomRegistrationServiceImpl ();
 	
 	static Scanner sc = new Scanner(System.in);
-public static void main(String[] args) throws SQLException, IOException
+public static void main(String[] args) throws SQLException, IOException, RoomException
 
 {
 	
@@ -45,10 +47,10 @@ public static void main(String[] args) throws SQLException, IOException
 	
 	
 }
-private static void registerhotel() throws SQLException, IOException
+private static void registerhotel() throws SQLException, IOException, RoomException
 {
 	ArrayList<Integer> list;
-	list= service1.getallOwner();
+					list= service1.getallOwner();
 	
 	System.out.println("Existing Hotelowener ids are:"+list);
 	
@@ -57,16 +59,29 @@ private static void registerhotel() throws SQLException, IOException
 	
     System.out.println("Enter hotel owener id");
     int id =sc.nextInt();
-	
+    
+    if(list.contains(id))
+    {
+    	
+    
 
 	System.out.println("Select  room type \n1.AC.....2.NonAc");
 	int Rtype = sc.nextInt();
 	
-	System.out.println("Enter room area in sq. ft ");
-	int Rarea = sc.nextInt();
+	if(service1.validateRoomtype(Rtype))
+	{
 	
+            System.out.println("Enter room area in sq. ft ");
+	         int Rarea = sc.nextInt();
+	
+	if(service1.validateRoomarea(Rarea))
+	{
+		
 	System.out.println("Enter desired rent amount Rs: ");
 	int Ramount = sc.nextInt();
+	
+	if(service1.validateAmount(Ramount))
+	{
 	
 	System.out.println("Enter desired paid amount Rs: ");
     int  Pamount= sc.nextInt();
@@ -75,6 +90,21 @@ private static void registerhotel() throws SQLException, IOException
 	
 	int row = service1. registerhotel(d);
 	
-	System.out.println(row+"Rows Inserted");
+	System.out.println("Room successfully registered. Room no:<"+row+">");
+	
+	}
+	
+	
+	}
+
+    else  
+    	System.out.println("Enter valid  hotel owener ids ");
+    }
 }
 }
+}
+
+
+   
+	
+

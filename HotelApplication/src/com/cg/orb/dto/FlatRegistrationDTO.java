@@ -22,6 +22,11 @@ public class FlatRegistrationDTO
 	}
 	
 	
+public FlatRegistrationDTO() {
+		// TODO Auto-generated constructor stub
+	}
+
+
 public int getOId() {
 	return OId;
 }
